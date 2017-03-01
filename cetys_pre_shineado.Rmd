@@ -1,0 +1,81 @@
+---
+title: "CETYS Análisis Previo"
+author: "Gerardo S. Romo-Cárdenas"
+output: html_notebook
+---
+
+
+```{r, message=FALSE, warning=FALSE, include=FALSE} 
+if (!require("pacman")) install.packages("pacman")  #####MAKING SURE PACKAGES NEEDED ARE INSTALLED
+pacman::p_load(ggplot2) #, package2, package_n
+
+library(ggplot2)
+```
+
+
+## Análisis Preliminar CETYS PLANEA
+
+Análisis preliminar de datos de CETYS PLANEA, para exploración de Data Mining
+
+
+```{r, echo=FALSE}
+library(corrplot)
+mydata<-read.csv(file="Categoria.csv", head=TRUE,sep=",")
+# Análisis preliminar de datos de prueba PLANEA CETYS
+
+```
+
+Parámetros estadísticos preliminares de los resultados de la aplicación, asociados por categorías.
+```{r, echo=FALSE}
+summary(mydata)
+```
+
+## Histogramas
+
+Histogramas de distribución para cada categoría
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(ggplot2)
+
+ggplot(data = mydata, aes(mydata$Cantidad)) + 
+  geom_histogram(breaks=seq(0, 100, by = 10), 
+                 col="black", 
+                 fill="blue", 
+                 alpha = .5) +
+  labs(title = "Histograma de la distribución de Resultados en Aritmética", x = "Calificación", y = "Cantidad de Estudiantes")
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+ggplot(data = mydata, aes(mydata$Esp.Form)) + 
+  geom_histogram(breaks=seq(0, 100, by = 10), 
+                 col="black", 
+                 fill="blue", 
+                 alpha = .5) +
+  labs(title = "Histograma de la distribución de Resultados en Geometría", x = "Calificación", y = "Cantidad de Estudiantes")
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(data = mydata, aes(mydata$Cam..Rel.)) + 
+  geom_histogram(breaks=seq(0, 100, by = 10), 
+                 col="black", 
+                 fill="blue", 
+                 alpha = .5) +
+  labs(title = "Histograma de la distribución de Resultados en Álgegra", x = "Calificación", y = "Cantidad de Estudiantes")
+```
+
+## Correlaciones entre categorías
+Correlación entre los resultados de prueba piloto PLANEA
+```{r, echo=FALSE}
+res <- cor(mydata)
+#Vusializar tabla de correlación
+res
+#Correlaciograma
+corrplot(res,type = "lower", order = "hclust", 
+         tl.col = "black", tl.srt = 50)
+
+```
+
+Información sensible y confidencial, prohibida su distribución.
+

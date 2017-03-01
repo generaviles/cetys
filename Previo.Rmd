@@ -4,8 +4,8 @@ author: "Gerardo S. Romo-Cárdenas"
 date: "28 de febrero de 2017"
 output:
   html_document: default
-  pdf_document: default
-  word_document: default
+  #pdf_document: default
+  #word_document: default
 ---
 
 ```{r setup, include=FALSE}
