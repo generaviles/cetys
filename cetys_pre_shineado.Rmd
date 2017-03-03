@@ -9,17 +9,58 @@ output: html_notebook
 if (!require("pacman")) install.packages("pacman")  #####MAKING SURE PACKAGES NEEDED ARE INSTALLED
 pacman::p_load(ggplot2) #, package2, package_n
 
-library(ggplot2)
 ```
 
 
 ## Análisis Preliminar CETYS PLANEA
 
+### Calificaciones en General
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(readr)
+library(corrplot)
+
+planea <- read_csv("D:/Dropbox/MsC UABC/Grupo DAIH/Aliados/CETYS/cetys/planea.csv")
+planea<-planea[-137:-336,]
+
+
+ggplot(planea, aes(planea$calif)) + 
+  geom_histogram(aes(y = ..density..),
+                 breaks = seq(0, 10, by =1),
+                 colour = "black",
+                 fill = "blue",
+                 alpha = .5) +
+  labs(title = "Distribución de Calificaciones Globales", x = "Calificación", y = "Densidad") +
+    stat_function(fun = dnorm, args = list(mean(planea$calif), sd = sd(planea$calif)),
+                  lwd = 2,
+                  col = 'red')
+  
+```
+
+Se puede apreciar que la distribución de los datos sigue un comportamiento **normal**.
+
+```{r, echo=FALSE}
+ggplot(planea, aes(planea$aciertos)) + 
+  geom_histogram(aes(y = ..density..),
+                 breaks = seq(0, 56, by =5),
+                 colour = "black",
+                 fill = "blue",
+                 alpha = .5) +
+  labs(title = "Distribución por Aciertos en el Test", x = "Cantidad de Aciertos", y = "Densidad") +
+    stat_function(fun = dnorm, args = list(mean(planea$aciertos), sd = sd(planea$aciertos)),
+                  lwd = 2,
+                  col = 'red')
+```
+
+Se puede apreciar que la distribución de los datos sigue siendo **normal**.
+<br \>
+
+###Calificaciones por Componente
+
 Análisis preliminar de datos de CETYS PLANEA, para exploración de Data Mining
 
 
 ```{r, echo=FALSE}
-library(corrplot)
 mydata<-read.csv(file="Categoria.csv", head=TRUE,sep=",")
 # Análisis preliminar de datos de prueba PLANEA CETYS
 
@@ -36,8 +77,6 @@ Histogramas de distribución para cada categoría
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-library(ggplot2)
-
 ggplot(data = mydata, aes(mydata$Cantidad)) + 
   geom_histogram(breaks=seq(0, 100, by = 10), 
                  col="black", 
