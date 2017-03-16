@@ -82,7 +82,10 @@ ggplot(data = mydata, aes(mydata$Cantidad)) +
                  col="black", 
                  fill="blue", 
                  alpha = .5) +
-  labs(title = "Histograma de la distribución de Resultados en Aritmética", x = "Calificación", y = "Cantidad de Estudiantes")
+  labs(title = "Histograma de la distribución de Resultados en Aritmética", x = "Calificación", y = "Cantidad de Estudiantes") +
+  stat_function(fun = dnorm, args = list(mean(mydata$Cantidad), sd = sd(mydata$Cantidad)),
+                  lwd = 2,
+                  col = 'red')
 ```
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
